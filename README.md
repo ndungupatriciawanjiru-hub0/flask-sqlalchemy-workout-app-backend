@@ -18,26 +18,30 @@ A Workout has many Exercises through WorkoutExercises, and an Exercise has many 
 
 ## Installation
 
+Requires Python 3.8 or newer (developed with Python 3.12) and pipenv.
+
 1. Clone the repo and cd into it.
-2. Install dependencies and open the environment: pipenv install, then pipenv shell
-3. cd server
-4. Set up the database: flask db init, flask db migrate -m "create tables", flask db upgrade head
-5. Seed it: python seed.py
+2. Install dependencies and open the environment: `pipenv install`, then `pipenv shell`
+3. Go to the server folder: `cd server`
+4. Set up the database: `flask db init`, `flask db migrate -m "create tables"`, `flask db upgrade head`
+5. Seed it: `python seed.py`
+
+The migrations folder is already included in the repo. If you cloned it, skip `flask db init` and `flask db migrate`, and just run `flask db upgrade head` before seeding.
 
 ## Running
 
-From the server directory run: flask run -p 5555 (or python app.py). The API is at http://localhost:5555.
+From the server directory run: `flask run -p 5555` (or `python app.py`). The API is at http://localhost:5555.
 
 ## Endpoints
 
-- GET /workouts: list all workouts
-- GET /workouts/<id>: one workout with its exercises, including reps, sets and duration
-- POST /workouts: create a workout. JSON: date (YYYY-MM-DD), duration_minutes, notes (optional)
-- DELETE /workouts/<id>: delete a workout and its workout exercises
-- GET /exercises: list all exercises
-- GET /exercises/<id>: one exercise with the workouts it appears in
-- POST /exercises: create an exercise. JSON: name, category, equipment_needed (optional)
-- DELETE /exercises/<id>: delete an exercise and its workout exercises
-- POST /workouts/<workout_id>/exercises/<exercise_id>/workout_exercises: add an exercise to a workout. JSON: reps and sets, or duration_seconds
+- `GET /workouts`: list all workouts
+- `GET /workouts/<id>`: one workout with its exercises, including reps, sets and duration
+- `POST /workouts`: create a workout. JSON: date (YYYY-MM-DD), duration_minutes, notes (optional)
+- `DELETE /workouts/<id>`: delete a workout and its workout exercises
+- `GET /exercises`: list all exercises
+- `GET /exercises/<id>`: one exercise with the workouts it appears in
+- `POST /exercises`: create an exercise. JSON: name, category, equipment_needed (optional)
+- `DELETE /exercises/<id>`: delete an exercise and its workout exercises
+- `POST /workouts/<workout_id>/exercises/<exercise_id>/workout_exercises`: add an exercise to a workout. JSON: reps and sets, or duration_seconds
 
 Errors return JSON with an error key: 400 for invalid data, 404 when not found, 409 for constraint violations such as adding the same exercise twice.
