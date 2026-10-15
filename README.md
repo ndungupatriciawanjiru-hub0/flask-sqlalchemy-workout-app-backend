@@ -12,8 +12,8 @@ A Workout has many Exercises through WorkoutExercises, and an Exercise has many 
 
 ## Validations
 
-- Table constraints: unique exercise name, non-blank name/category, positive workout duration, positive reps/sets/duration_seconds, one link per exercise per workout
-- Model validations: non-empty exercise name and category, positive workout duration, positive reps/sets/duration_seconds
+- Table constraints: unique exercise name, non-blank exercise name, positive workout duration, non-negative reps/sets/duration_seconds
+- Model validations: non-empty exercise name and category, positive workout duration, non-negative reps/sets/duration_seconds
 - Schema validations: field length and range checks, a required valid date, reps requires sets, and reps or duration_seconds must be given
 
 ## Installation
@@ -44,4 +44,4 @@ From the server directory run: `flask run -p 5555` (or `python app.py`). The API
 - `DELETE /exercises/<id>`: delete an exercise and its workout exercises
 - `POST /workouts/<workout_id>/exercises/<exercise_id>/workout_exercises`: add an exercise to a workout. JSON: reps and sets, or duration_seconds
 
-Errors return JSON with an error key: 400 for invalid data, 404 when not found, 409 for constraint violations such as adding the same exercise twice.
+Errors return JSON with an error or errors key: 400 for invalid data or constraint violations (such as a duplicate exercise name), and 404 when a record is not found.
